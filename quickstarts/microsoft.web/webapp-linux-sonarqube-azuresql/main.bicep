@@ -64,7 +64,13 @@ param sqlDatabaseSkuName string = 'GP_S_Gen5_2'
 param sqlDatabaseSkuSizeGB int = 16
 
 @description('Location for all the resources.')
-param location string = resourceGroup().location
+@allowed(
+  [
+    'eastus2'
+    'eastus'
+  ]
+)
+param location string
 
 var databaseName = 'sonarqube'
 var sqlServerName = '${siteName}-sql'
