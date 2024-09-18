@@ -49,35 +49,12 @@ param sqlServerAdministratorPassword string
 
 @description('Azure SQL Database SKU Name')
 @allowed([
-  'GP_Gen4_1'
-  'GP_Gen4_2'
-  'GP_Gen4_3'
-  'GP_Gen4_4'
-  'GP_Gen4_5'
-  'GP_Gen4_6'
-  'GP_Gen4_7'
-  'GP_Gen4_8'
-  'GP_Gen4_9'
-  'GP_Gen4_10'
-  'GP_Gen4_16'
-  'GP_Gen4_24'
-  'GP_Gen5_2'
-  'GP_Gen5_4'
-  'GP_Gen5_6'
-  'GP_Gen5_8'
-  'GP_Gen5_10'
-  'GP_Gen5_12'
-  'GP_Gen5_14'
-  'GP_Gen5_16'
-  'GP_Gen5_18'
-  'GP_Gen5_20'
-  'GP_Gen5_24'
-  'GP_Gen5_32'
-  'GP_Gen5_40'
-  'GP_Gen5_80'
   'GP_S_Gen5_1'
   'GP_S_Gen5_2'
   'GP_S_Gen5_4'
+  'HS_Gen5_1'
+  'HS_Gen5_2'
+  'HS_Gen5_4'
 ])
 param sqlDatabaseSkuName string = 'GP_S_Gen5_2'
 
@@ -187,8 +164,12 @@ resource sqlDatabase 'Microsoft.Sql/servers/databases@2021-11-01' = {
   sku: {
     name: sqlDatabaseSkuName
     tier: 'GeneralPurpose'
+    family: 'Gen5'
   }
   properties: {
+    autoPauseDelay: 60 // Time in minutes to auto-pause the serverless database
+    minCapacity: 1 // Minimum vCores for serverless
+    maxCapacity: 4 // Maximum vCores for serverless
     collation: 'SQL_Latin1_General_CP1_CS_AS'
     catalogCollation: 'SQL_Latin1_General_CP1_CI_AS'
     maxSizeBytes: (((sqlDatabaseSkuSizeGB * 1024) * 1024) * 1024)
