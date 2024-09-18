@@ -56,12 +56,12 @@ param sqlServerAdministratorPassword string
   'HS_Gen5_2'
   'HS_Gen5_4'
 ])
-param sqlDatabaseSkuName string = 'GP_S_Gen5_2'
+param sqlDatabaseSkuName string = 'HS_Gen5_1'
 
 @description('Azure SQL Database Storage Max Size in GB')
 @minValue(1)
 @maxValue(1024)
-param sqlDatabaseSkuSizeGB int = 16
+param sqlDatabaseSkuSizeGB int = 32
 
 @description('Location for all the resources.')
 @allowed(
